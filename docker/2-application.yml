@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  api:
+    image: sports-app:latest
+    deploy:
+      replicas: 3
+    environment:
+      MIX_ENV: dev
+    command: iex -S mix
+    depends_on:
+      - database
+    networks:
+      - web
+
+networks:
+  web:
+    driver: overlay

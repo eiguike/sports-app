@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package sports_app;
+
+service MatchesService {
+  rpc SearchMatches (MatchesParameters) returns (MatchesResponse) {}
+}
+
+message MatchesParameters {
+    string league = 1;
+    string season = 2;
+}
+
+message MatchesResponse {
+  repeated Match matches = 1;
+}
+
+message Match {
+    string league = 1;
+    string season = 2;
+    string date = 3;
+    string home_team = 4;
+    string away_team = 5;
+    int32 fthg = 6;
+    int32 ftag = 7;
+    string ftr = 8;
+    int32 hthg = 9;
+    int32 htag = 10;
+    string htr = 11;
+}

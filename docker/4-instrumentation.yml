@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./config/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./config/dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+      - ./config/beam_dashboard.json:/etc/grafana/provisioning/dashboards/beam_dashboard.json
+      - ./config/elixir_dashboard.json:/etc/grafana/provisioning/dashboards/elixir_dashboard.json
+    ports:
+      - 3000:3000
+    networks:
+      - web
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - web
+
+networks:
+  web:
+    driver: overlay

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:9.4.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - web
+
+networks:
+  web:
+    driver: overlay

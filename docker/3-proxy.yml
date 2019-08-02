@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  proxy:
+    image: haproxy:2.0.0
+    deploy:
+      restart_policy:
+        condition: any
+    volumes:
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 8000:8000
+    networks:
+      - web
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  web:
+    driver: overlay
