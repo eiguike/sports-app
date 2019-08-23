@@ -1,0 +1,33 @@
+--- DATABASE
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sports-app-database
+spec:
+  containers:
+  - name: postgresql
+    image: postgres:9.4.5
+    env:
+    - name: POSTGRES_USER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      value: postgres
+    ports:
+      - containerPort: 5432
+
+--- APPLICATION
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sports-app
+spec:
+  containers:
+  - name: sports-app
+    image: sports-app:latest
+    env:
+    - name: POSTGRES_USER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      value: postgres
+    ports:
+      - containerPort: [4000, 8080]
